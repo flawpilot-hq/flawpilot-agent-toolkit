@@ -1,0 +1,24 @@
+{
+  "_comment": "Source of truth for MCP tool names that flawpilot skills may reference. Verified against a live authenticated tools/list from https://mcp.flawpilot.com/mcp (server flawpilot-mcp-server 1.8.10) on 2026-10-12. Re-check when the server version changes.",
+  "server": "https://mcp.flawpilot.com/mcp",
+  "verified": true,
+  "tools": {
+    "quickScan": [
+      "list_projects",
+      "trigger_scan",
+      "get_scan_status"
+    ],
+    "codeScan": [
+      "list_integration_repos",
+      "trigger_code_scan",
+      "get_code_scan_status",
+      "get_code_scan_findings"
+    ],
+    "siteHealth": [
+      "trigger_site_health",
+      "get_site_health_status",
+      "list_site_health_checks"
+    ]
+  },
+  "verifiedOn": "2026-10-12"
+}

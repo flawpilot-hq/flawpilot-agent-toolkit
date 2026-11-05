@@ -1,0 +1,29 @@
+{
+  "name": "flawpilot-agent-toolkit",
+  "description": "Open-source agent skills for FlawPilot, plus standalone security, performance and SEO skills",
+  "owner": {
+    "name": "FlawPilot"
+  },
+  "plugins": [
+    {
+      "name": "flawpilot",
+      "source": "./plugins/flawpilot",
+      "description": "Run FlawPilot URL scans, Site Health crawls and code scans from your AI assistant, then triage and fix the findings"
+    },
+    {
+      "name": "security-essentials",
+      "source": "./plugins/security-essentials",
+      "description": "Standalone defensive security skills: secure code review, API security, secrets hygiene, web hardening and AI agent security"
+    },
+    {
+      "name": "performance-essentials",
+      "source": "./plugins/performance-essentials",
+      "description": "Standalone web performance skills: Core Web Vitals, page speed audits, asset optimization, caching and CDN"
+    },
+    {
+      "name": "seo-essentials",
+      "source": "./plugins/seo-essentials",
+      "description": "Standalone technical SEO skills: on-page SEO, crawlability, structured data and link hygiene"
+    }
+  ]
+}

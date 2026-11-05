@@ -1,0 +1,7 @@
+{
+  "name": "demo-marketplace",
+  "owner": { "name": "Demo" },
+  "plugins": [
+    { "name": "demo", "source": "./plugins/demo", "description": "Demo plugin" }
+  ]
+}

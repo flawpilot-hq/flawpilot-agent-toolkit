@@ -1,0 +1,1 @@
+{ "tools": { "quickScan": ["list_projects", "trigger_scan", "get_scan_status"] }, "aliases": ["start_scan"] }

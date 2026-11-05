@@ -1,0 +1,20 @@
+{
+  "name": "performance-essentials",
+  "displayName": "Performance Essentials",
+  "version": "0.1.0",
+  "description": "Standalone web performance skills: Core Web Vitals, page speed audits, asset optimization, caching and CDN",
+  "author": {
+    "name": "FlawPilot",
+    "url": "https://flawpilot.com"
+  },
+  "homepage": "https://docs.flawpilot.com",
+  "repository": "https://github.com/flawpilot-hq/flawpilot-agent-toolkit",
+  "license": "Apache-2.0",
+  "keywords": [
+    "performance",
+    "core-web-vitals",
+    "lighthouse",
+    "caching",
+    "cdn"
+  ]
+}
