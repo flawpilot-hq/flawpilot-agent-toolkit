@@ -1,0 +1,56 @@
+{
+  "name": "flawpilot-agent-toolkit",
+  "interface": {
+    "displayName": "FlawPilot Agent Toolkit"
+  },
+  "plugins": [
+    {
+      "name": "flawpilot",
+      "source": {
+        "source": "local",
+        "path": "./plugins/flawpilot"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    },
+    {
+      "name": "security-essentials",
+      "source": {
+        "source": "local",
+        "path": "./plugins/security-essentials"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    },
+    {
+      "name": "performance-essentials",
+      "source": {
+        "source": "local",
+        "path": "./plugins/performance-essentials"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    },
+    {
+      "name": "seo-essentials",
+      "source": {
+        "source": "local",
+        "path": "./plugins/seo-essentials"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    }
+  ]
+}

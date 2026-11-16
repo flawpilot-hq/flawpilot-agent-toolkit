@@ -24,3 +24,6 @@ venv/
 # Internal planning and release notes. Kept locally, never published.
 docs/
 RELEASING.md
+
+# Built release ZIPs (scripts/package_skills.py)
+dist/

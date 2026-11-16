@@ -17,7 +17,7 @@ MAX_POLLS="${MAX_POLLS:-60}"
 
 HDR=$(mktemp)
 trap 'rm -f "$HDR"' EXIT
-# shellcheck source=fp-request.sh
+# shellcheck source=SCRIPTDIR/fp-request.sh
 source "$(dirname "$0")/fp-request.sh"
 
 # Gate the pillar that matches the score you check.

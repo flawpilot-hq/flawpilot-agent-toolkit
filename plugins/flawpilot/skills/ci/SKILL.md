@@ -1,6 +1,8 @@
 ---
 name: ci
 description: Add FlawPilot scans to a CI/CD pipeline using the REST API, with pass or fail gates on scores and critical findings. Use when the user asks to run FlawPilot in GitHub Actions, GitLab CI or any pipeline, gate a build or deploy on scan results, schedule nightly scans, or handle API keys and rate limits in CI.
+metadata:
+  short-description: "Run FlawPilot scans in CI/CD (GitHub Actions, GitLab CI) and gate builds on scores and critical findings."
 ---
 
 # FlawPilot in CI/CD

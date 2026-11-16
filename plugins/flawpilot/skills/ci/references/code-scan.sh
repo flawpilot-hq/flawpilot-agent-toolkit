@@ -16,7 +16,7 @@ MAX_POLLS="${MAX_POLLS:-120}"
 
 HDR=$(mktemp)
 trap 'rm -f "$HDR"' EXIT
-# shellcheck source=fp-request.sh
+# shellcheck source=SCRIPTDIR/fp-request.sh
 source "$(dirname "$0")/fp-request.sh"
 
 run=$(fp_post "/v1/code-scans/trigger" \

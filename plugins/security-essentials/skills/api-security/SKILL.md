@@ -1,6 +1,8 @@
 ---
 name: api-security
 description: Review a REST or GraphQL API for security problems such as broken object-level authorization, weak authentication, mass assignment, missing rate limits, SSRF and token handling. Use when the user designs, builds or reviews an API, asks about IDOR, JWT or OAuth handling, rate limiting, or API authorization.
+metadata:
+  short-description: "Review REST or GraphQL APIs for broken authorization (IDOR), weak auth, mass assignment, rate limits, SSRF and tokens."
 ---
 
 # API security

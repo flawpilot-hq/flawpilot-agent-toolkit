@@ -1,7 +1,7 @@
 {
   "name": "security-essentials",
   "displayName": "Security Essentials",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Standalone defensive security skills: secure code review, API security, secrets hygiene, web hardening and AI agent security",
   "author": {
     "name": "FlawPilot",

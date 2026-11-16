@@ -1,6 +1,8 @@
 ---
 name: triage
 description: Rank and prioritize FlawPilot findings across URL scans, Site Health and code scans so the user knows what to fix first. Use when the user asks what to fix first, wants a prioritized list or summary of scan results, asks which findings matter, or has results from more than one FlawPilot scan.
+metadata:
+  short-description: "Rank FlawPilot findings across URL, Site Health and code scans so you know what to fix first."
 ---
 
 # Triage FlawPilot findings
@@ -23,7 +25,7 @@ Turn raw results into an ordered work list. Triage ranks; it does not change cod
 
 Use data already in the conversation. If something is missing, fetch it:
 
-- URL scan: `get_scan_status` for the band and pillar scores.
+- URL scan: `get_scan_status` for the band and pillar scores, then `get_scan_findings` for the findings themselves.
 - Code scan: `get_code_scan_status`, then `get_code_scan_findings` per job.
 - Site Health: `get_site_health_status` for top-line scores.
 
@@ -53,7 +55,7 @@ Give a short table, worst first:
 | # | Severity | Area | Where | What | Effort |
 |---|---|---|---|---|---|
 
-Then a two or three line summary: what to do today, what can wait, and anything that needs a human decision. Mention the scan date and the branch (for code scans) so the user knows what the list reflects.
+Then a two or three line summary: what to do today, what can wait, and anything that needs a human decision. If findings already have a `COMPLETED` AI fix, say so; it makes them cheaper to fix. Offer `ai-fixes` for the top items that have none. Mention the scan date and the branch (for code scans) so the user knows what the list reflects.
 
 ## False positives
 

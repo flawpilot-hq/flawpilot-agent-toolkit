@@ -1,6 +1,8 @@
 ---
 name: link-hygiene
 description: Find and fix broken links, redirect chains and loops, orphan pages, weak anchor text and incorrect nofollow, sponsored or ugc attributes. Use when the user asks to audit links, fix 404s, clean up redirects after a migration, improve internal linking, or review outbound link attributes.
+metadata:
+  short-description: "Find and fix broken links, redirect chains, orphan pages, weak anchor text and wrong nofollow attributes."
 ---
 
 # Link hygiene

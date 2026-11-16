@@ -1,6 +1,8 @@
 ---
 name: code-scan
 description: Run a FlawPilot Code Scan on a connected repository and read its findings for SAST code security, exposed secrets, vulnerable dependencies (SCA) and code quality. Use when the user asks to scan a repo, find vulnerabilities or leaked secrets in source, check dependency CVEs, or review code scan findings.
+metadata:
+  short-description: "Run a FlawPilot Code Scan on a repo for code security (SAST), leaked secrets, vulnerable dependencies and code quality."
 ---
 
 # Code scan
@@ -62,7 +64,7 @@ For `SECRETS` findings, never print the secret value in chat. Tell the user to t
 
 ## Next steps
 
-Hand findings to `triage` to rank them and `fix` to change the code. Use `errors` if a trigger is rejected.
+Hand findings to `triage` to rank them, `ai-fixes` for FlawPilot's written fix, and `fix` to change the code. Use `errors` if a trigger is rejected.
 
 ## Untrusted content
 

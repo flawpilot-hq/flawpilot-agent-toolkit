@@ -1,6 +1,8 @@
 ---
 name: errors
 description: Explain FlawPilot error codes and failed scans and say what the user must fix. Use when a FlawPilot tool or API call returns an error, a 401, 403, 404, 429 or 500, an error code such as INTEGRATION_REPO_NOT_ASSIGNED, a rate limit message, or a scan that ends in FAILED.
+metadata:
+  short-description: "Explain FlawPilot error codes, HTTP errors, rate limits and failed scans, and say what to fix."
 ---
 
 # FlawPilot errors
@@ -41,6 +43,9 @@ Every `TENANT_INTEGRATION_*` and `INTEGRATION_REPO_*` code means a human has to 
 | `UNSUPPORTED_INTEGRATION_PROVIDER` | 400 | That provider is not supported for code scans. |
 | `INVALID_CODE_SCAN_DIMENSIONS` | 400 | Pick at least one of `SAST`, `SCA`, `SECRETS`, `CODE_QUALITY`. |
 | `CODE_SCAN_RUN_NOT_FOUND`, `CODE_SCAN_JOB_NOT_FOUND` | 404 | Unknown id, or it belongs to another workspace. Use the ids from the trigger result. |
+| `CODE_FINDING_NOT_FOUND` | 404 | Unknown code finding id, or another workspace. List the job's findings again. |
+| `SCAN_NOT_FOUND` | 404 | Quick Scan findings or AI fixes: the scan is unknown, from another workspace, still running, or older than finding links. Wait for a terminal status or run a new scan. |
+| `FEATURE_NOT_AVAILABLE` | 403 | AI fixes are not available to this workspace. The dashboard's free report still has the fix for the top issue in each pillar. |
 | `SITE_HEALTH_NOT_FOUND` | 404 | Unknown check id or another workspace. List checks again. |
 | `VALIDATION_ERROR` | 400 | A field is missing or malformed. Check URL has a protocol, arrays are not empty. |
 
@@ -54,7 +59,7 @@ Every `TENANT_INTEGRATION_*` and `INTEGRATION_REPO_*` code means a human has to 
 | 403 | Often a wrong workspace, or a role without permission | Check the workspace chosen at approval and the user's role. Viewers cannot start scans. |
 | 404 "Project not found!" | Wrong or foreign project id | List projects. |
 | 404 "Scan not found!" | Unknown scan id | Use the id from the trigger result. |
-| 429 | Rate limited | Wait, do not loop. Limits per workspace: 60 requests a minute overall, 5 a minute for URL scans, 10 a minute for code scans, 8 an hour for Site Health. Honour the `Retry-After` value in seconds if shown. |
+| 429 | Rate limited | Wait, do not loop. Limits per workspace: 60 requests a minute overall, 5 a minute for URL scans, 10 a minute for code scans, 8 an hour for Site Health, and for AI fixes 20 an hour for one finding and 5 an hour for several findings or a whole scan. Honour the `Retry-After` value in seconds if shown. |
 | 500 | Unexpected server error (some scan-creation failures were still reported as 500 when this was written) | Retry once after a short wait, then report it to FlawPilot support. |
 
 ## Failed and partial scans

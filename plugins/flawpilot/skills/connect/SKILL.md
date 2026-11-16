@@ -1,6 +1,8 @@
 ---
 name: connect
 description: Connect an AI assistant to the FlawPilot MCP server, or fix a broken connection. Use when FlawPilot tools are missing, authentication fails or loops, the user asks how to set up FlawPilot in Claude, ChatGPT, Gemini, Cursor or VS Code, or asks about API keys and revoking access.
+metadata:
+  short-description: "Connect your AI assistant to the FlawPilot MCP server, or fix missing tools, failed sign-in and API key issues."
 ---
 
 # Connect to FlawPilot

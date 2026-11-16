@@ -1,6 +1,8 @@
 ---
 name: web-hardening
 description: Harden a website's browser security and public configuration, including security headers, CSP, HSTS, cookies, TLS, and DNS email authentication (SPF, DKIM, DMARC). Use when the user asks to improve website security headers, fix a scanner report, set up a Content Security Policy, secure cookies, or configure email authentication.
+metadata:
+  short-description: "Harden a site's security headers, CSP, HSTS, cookies, TLS and email authentication (SPF, DKIM, DMARC)."
 ---
 
 # Web hardening

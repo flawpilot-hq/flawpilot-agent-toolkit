@@ -1,6 +1,8 @@
 ---
 name: ai-agent-security
 description: Review the security of AI agents and LLM applications, including prompt injection, tool permissions, excessive agency, and vetting third-party agent skills and MCP servers before installing them. Use when the user builds an LLM app or agent, adds tools or MCP servers, installs a skill or plugin, or asks about prompt injection.
+metadata:
+  short-description: "Secure AI agents and LLM apps: prompt injection, tool permissions, excessive agency, and vetting skills and MCP servers."
 ---
 
 # AI agent security

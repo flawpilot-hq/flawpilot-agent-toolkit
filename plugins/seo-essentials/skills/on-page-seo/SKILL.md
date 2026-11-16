@@ -1,6 +1,8 @@
 ---
 name: on-page-seo
 description: Audit and improve on-page SEO elements such as title tags, meta descriptions, headings, canonical tags, image alt text, Open Graph tags and URL structure. Use when the user asks to improve a page's SEO, write titles or meta descriptions, fix duplicate or missing metadata, or review a page for search.
+metadata:
+  short-description: "Audit and improve titles, meta descriptions, headings, canonicals, alt text, Open Graph tags and URLs."
 ---
 
 # On-page SEO

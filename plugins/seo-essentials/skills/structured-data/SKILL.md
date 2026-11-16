@@ -1,6 +1,8 @@
 ---
 name: structured-data
 description: Add and validate schema.org structured data (JSON-LD) for rich results, such as Article, Product, FAQ, Organization, BreadcrumbList and LocalBusiness. Use when the user asks for schema markup, JSON-LD, rich snippets, or a structured data error needs fixing.
+metadata:
+  short-description: "Add and validate schema.org JSON-LD for rich results: Article, Product, FAQ, Organization, Breadcrumb and more."
 ---
 
 # Structured data

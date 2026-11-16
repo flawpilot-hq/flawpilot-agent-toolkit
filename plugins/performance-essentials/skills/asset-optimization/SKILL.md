@@ -1,6 +1,8 @@
 ---
 name: asset-optimization
 description: Reduce page weight by optimizing images, fonts, JavaScript and CSS, including modern formats, responsive images, lazy loading, font loading, code splitting and removing unused code. Use when the user asks to make images smaller, fix large bundles, speed up font loading, lazy load content, or reduce unused JavaScript or CSS.
+metadata:
+  short-description: "Cut page weight: optimize images, fonts, JavaScript and CSS with modern formats, lazy loading and code splitting."
 ---
 
 # Asset optimization
