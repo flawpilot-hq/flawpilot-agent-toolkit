@@ -1,3 +1,4 @@
+# shellcheck shell=bash
 # Sourced by quick-scan.sh and code-scan.sh. Needs curl.
 # Expects API and FLAWPILOT_API_KEY to be set by the caller.
 #

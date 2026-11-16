@@ -31,7 +31,7 @@ jobs:
       - name: Build release ZIPs (dry run)
         run: python scripts/package_skills.py --out "$RUNNER_TEMP/dist" .
       - name: Shellcheck CI example scripts
-        run: shellcheck plugins/flawpilot/skills/ci/references/*.sh
+        run: shellcheck -x plugins/flawpilot/skills/ci/references/*.sh
 
   claude-validate:
     # Official Claude Code validator. Needs no login; verified locally with an empty HOME.
