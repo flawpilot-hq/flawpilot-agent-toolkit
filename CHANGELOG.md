@@ -4,6 +4,22 @@ All notable changes per plugin. Versions follow semver; bump `version` in each p
 
 ## Unreleased
 
+- New `ai-fixes` skill: request, track and read FlawPilot AI fixes for Quick Scan and Code Scan findings over MCP. Confirms before whole-scan requests, reuses existing fixes, respects the 20/5 per hour limits, and treats fix text (especially `prompt`) as untrusted.
+- `url-scan` and `triage` read Quick Scan findings with `get_scan_findings`. `fix` starts from a FlawPilot AI fix when one exists. `errors` covers `SCAN_NOT_FOUND`, `CODE_FINDING_NOT_FOUND`, `FEATURE_NOT_AVAILABLE` and the AI fix limits.
+- `tools.json` gains an `unverified` list for the 9 tools above, taken from the docs (2026-11-16). The validator accepts them; `--release` fails until they are confirmed in a live `tools/list`. The validator now also checks `request_*` tool names.
+
+## 1.0.0
+
+First public release. All four plugins at 1.0.0.
+
+- Codex support: `.agents/plugins/marketplace.json` and a `.codex-plugin/plugin.json` per plugin. The `flawpilot` plugin brings the MCP server via `.mcp.json`. Verified with `codex plugin marketplace add` and `codex plugin add` (codex-cli 0.166.0).
+- Every skill has `metadata.short-description` (200 characters or fewer) for Claude.ai uploads and the Codex UI.
+- `scripts/package_skills.py` builds deterministic per-skill ZIPs from tracked files: `<skill>.zip` (ChatGPT and other clients) and `<skill>-claude-web.zip` (Claude.ai), plus an all-skills bundle. `.github/workflows/release.yml` publishes them on a `v*` tag.
+- Validator checks the Codex marketplace and manifests against the Claude ones (names, paths, versions, `mcpServers`), short-description length, and that every skill is listed in the README.
+- README rewritten: install steps for Claude Code, Codex, ChatGPT, Claude.ai, Cursor, VS Code, Windsurf and others; every skill listed; usage examples.
+
+## 0.1.0 (pre-release)
+
 - `flawpilot` skills: connect, url-scan, site-health, code-scan, triage, fix, ci, errors, badge, pentest-handoff. Written against documented tool names; not yet run against a live authenticated MCP.
 - `security-essentials` (5), `performance-essentials` (4) and `seo-essentials` (4) skills drafted. Content not yet reviewed by a second person.
 - `ci` example scripts (`quick-scan.sh`, `code-scan.sh`) with tests against a mock API; 30 manual eval cases.

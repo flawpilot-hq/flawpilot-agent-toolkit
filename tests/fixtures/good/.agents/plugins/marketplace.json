@@ -1,0 +1,12 @@
+{
+  "name": "demo-marketplace",
+  "plugins": [
+    {
+      "name": "demo",
+      "source": {
+        "source": "local",
+        "path": "./plugins/demo"
+      }
+    }
+  ]
+}

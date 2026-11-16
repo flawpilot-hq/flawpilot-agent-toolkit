@@ -1,6 +1,8 @@
 ---
 name: crawlability
 description: Diagnose why pages are not crawled or indexed, covering robots.txt, XML sitemaps, noindex, canonicals, HTTP status codes, redirects and JavaScript rendering. Use when pages are missing from search results, a crawler cannot reach a section, the user asks about robots.txt or sitemap.xml, or indexing reports show errors.
+metadata:
+  short-description: "Find why pages are not crawled or indexed: robots.txt, sitemaps, noindex, canonicals, redirects and JS rendering."
 ---
 
 # Crawlability and indexing

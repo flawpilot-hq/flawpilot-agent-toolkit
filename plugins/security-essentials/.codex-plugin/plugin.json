@@ -1,0 +1,41 @@
+{
+  "name": "security-essentials",
+  "version": "1.0.0",
+  "description": "Standalone defensive security skills: secure code review, API security, secrets hygiene, web hardening and AI agent security",
+  "author": {
+    "name": "FlawPilot",
+    "url": "https://flawpilot.com"
+  },
+  "homepage": "https://docs.flawpilot.com",
+  "repository": "https://github.com/flawpilot-hq/flawpilot-agent-toolkit",
+  "license": "Apache-2.0",
+  "keywords": [
+    "security",
+    "code-review",
+    "owasp",
+    "secrets",
+    "api-security"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Security Essentials",
+    "shortDescription": "Secure code review, API security, secrets and hardening",
+    "longDescription": "Standalone defensive security skills: review code and diffs for vulnerabilities, check REST and GraphQL APIs, find and rotate leaked secrets, harden headers, TLS and email authentication, and secure AI agents and MCP servers. No FlawPilot account needed.",
+    "developerName": "FlawPilot",
+    "category": "Developer Tools",
+    "websiteURL": "https://flawpilot.com",
+    "privacyPolicyURL": "https://flawpilot.com/privacy",
+    "termsOfServiceURL": "https://flawpilot.com/terms",
+    "brandColor": "#F15B4C",
+    "composerIcon": "./assets/icon.png",
+    "logo": "./assets/icon.png",
+    "capabilities": [
+      "Read"
+    ],
+    "defaultPrompt": [
+      "Review this diff for security issues",
+      "Check my API for IDOR and auth problems",
+      "Set up CSP and HSTS for this app"
+    ]
+  }
+}

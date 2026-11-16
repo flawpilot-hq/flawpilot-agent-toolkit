@@ -15,6 +15,8 @@ SKILL = Path("plugins/demo/skills/url-scan/SKILL.md")
 PLUGIN_JSON = Path("plugins/demo/.claude-plugin/plugin.json")
 MARKETPLACE = Path(".claude-plugin/marketplace.json")
 MCP = Path("plugins/demo/.mcp.json")
+CODEX_PLUGIN = Path("plugins/demo/.codex-plugin/plugin.json")
+CODEX_MARKETPLACE = Path(".agents/plugins/marketplace.json")
 
 
 class ValidatorTests(unittest.TestCase):
@@ -152,6 +154,62 @@ class ValidatorTests(unittest.TestCase):
     def test_mcp_local_command_rejected(self):
         self.edit_json(MCP, lambda d: d["mcpServers"]["flawpilot"].update(command="npx"))
         self.assert_error("runs a local command")
+
+    def test_short_description_too_long(self):
+        self.edit(SKILL, lambda t: t.replace('short-description: "Run', 'short-description: "' + "x" * 201 + " Run"))
+        self.assert_error("short-description must be 1-200")
+
+    def test_missing_short_description_warns(self):
+        self.edit(SKILL, lambda t: t.replace("metadata:\n  short-description: \"Run a FlawPilot URL scan.\"\n", ""))
+        self.assertTrue(any("short-description" in w for w in self.run_validator().warnings))
+
+    def test_skill_missing_from_readme_warns(self):
+        self.edit(Path("README.md"), lambda t: t.replace("`url-scan`", "url scan"))
+        self.assertTrue(any("not listed in the README" in w for w in self.run_validator().warnings))
+
+    def test_codex_version_mismatch(self):
+        self.edit_json(CODEX_PLUGIN, lambda d: d.update(version="9.9.9"))
+        self.assert_error("must equal the Claude manifest version")
+
+    def test_codex_manifest_missing(self):
+        (self.root / CODEX_PLUGIN).unlink()
+        self.assert_error("file is missing")
+
+    def test_codex_marketplace_missing_plugin(self):
+        self.edit_json(CODEX_MARKETPLACE, lambda d: d.update(plugins=[]))
+        self.assert_error("not the Codex one")
+
+    def test_codex_marketplace_unknown_plugin(self):
+        self.edit_json(CODEX_MARKETPLACE, lambda d: d["plugins"].append(
+            {"name": "ghost", "source": {"source": "local", "path": "./plugins/ghost"}}))
+        self.assert_error("is not in .claude-plugin/marketplace.json")
+
+    def test_codex_wrong_path(self):
+        self.edit_json(CODEX_MARKETPLACE, lambda d: d["plugins"][0]["source"].update(path="./plugins/other"))
+        self.assert_error("differs from the Claude marketplace source")
+
+    def test_codex_missing_mcp_servers(self):
+        self.edit_json(CODEX_PLUGIN, lambda d: d.pop("mcpServers"))
+        self.assert_error("has no `mcpServers`")
+
+    def test_codex_skills_path_missing(self):
+        self.edit_json(CODEX_PLUGIN, lambda d: d.update(skills="./nope/"))
+        self.assert_error("does not exist")
+
+    def test_codex_marketplace_absent_warns(self):
+        (self.root / CODEX_MARKETPLACE).unlink()
+        self.assertTrue(any("no Codex marketplace" in w for w in self.run_validator().warnings))
+
+    def test_unknown_request_tool(self):
+        self.edit(SKILL, lambda t: t + "\nThen call `request_magic_fix`.\n")
+        self.assert_error("not in plugins/demo/tools.json")
+
+    def test_unverified_tool_allowed_but_blocks_release(self):
+        self.edit_json(Path("plugins/demo/tools.json"), lambda d: d.update(verified=True, unverified={"aiFixes": ["request_finding_ai_fixes"]}))
+        self.edit(SKILL, lambda t: t + "\nThen call `request_finding_ai_fixes`.\n")
+        self.assertEqual(self.run_validator().errors, [])
+        rel = v.validate(self.root, release=True)
+        self.assertTrue(any("unverified tools" in e for e in rel.errors), rel.errors)
 
     def test_invalid_frontmatter_yaml(self):
         self.edit(SKILL, lambda t: t.replace("license: Apache-2.0", "license: [unclosed"))

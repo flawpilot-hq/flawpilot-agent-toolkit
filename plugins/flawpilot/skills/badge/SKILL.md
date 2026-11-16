@@ -1,6 +1,8 @@
 ---
 name: badge
 description: Add a live FlawPilot score badge to a README, docs or website. Use when the user asks to show their FlawPilot score, add a security or health badge to a repository or site, or embed a FlawPilot badge in Markdown or HTML.
+metadata:
+  short-description: "Add a live FlawPilot score badge to a README, docs page or website in Markdown or HTML."
 ---
 
 # FlawPilot embed badge

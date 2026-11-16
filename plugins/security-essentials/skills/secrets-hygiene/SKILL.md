@@ -1,6 +1,8 @@
 ---
 name: secrets-hygiene
 description: Find, rotate and prevent leaked secrets such as API keys, tokens, passwords and private keys in code, git history, CI logs and config. Use when a secret was committed or pasted, the user asks how to store credentials, wants pre-commit secret scanning, or needs to clean git history.
+metadata:
+  short-description: "Find, rotate and prevent leaked API keys, tokens and passwords in code, git history, CI logs and config."
 ---
 
 # Secrets hygiene

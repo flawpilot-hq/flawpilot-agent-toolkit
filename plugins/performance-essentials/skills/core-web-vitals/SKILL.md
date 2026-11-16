@@ -1,6 +1,8 @@
 ---
 name: core-web-vitals
 description: Diagnose and fix Core Web Vitals problems, meaning slow Largest Contentful Paint (LCP), poor Interaction to Next Paint (INP) and layout shift (CLS). Use when the user asks about Core Web Vitals, a failing LCP, INP or CLS score, a slow-feeling page, layout jumping, or Lighthouse and PageSpeed results.
+metadata:
+  short-description: "Diagnose and fix Core Web Vitals: slow LCP, poor INP and layout shift (CLS)."
 ---
 
 # Core Web Vitals

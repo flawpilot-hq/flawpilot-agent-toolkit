@@ -7,6 +7,7 @@ Thanks for helping. Skills here run inside people's coding assistants, so qualit
 - [ ] Folder is `plugins/<plugin>/skills/<name>/SKILL.md` and `name` in the frontmatter matches the folder.
 - [ ] `name`: lowercase letters, digits and single hyphens, 64 characters or fewer. Do not repeat the plugin name (it is added automatically: `/flawpilot:url-scan`).
 - [ ] `description`: 1024 characters or fewer, says what the skill does and when to use it.
+- [ ] `metadata.short-description`: 200 characters or fewer. Claude.ai uploads and the Codex UI show this one.
 - [ ] Has "When to use" and "When NOT to use" sections.
 - [ ] `SKILL.md` is under 500 lines; long material is in `references/`.
 - [ ] Findings cite evidence (file and line) and say how confident they are.
@@ -14,7 +15,8 @@ Thanks for helping. Skills here run inside people's coding assistants, so qualit
 - [ ] Standards are cited by name and version.
 - [ ] No scripts that download and run remote code; no network calls except documented FlawPilot endpoints.
 - [ ] FlawPilot skills only name MCP tools listed in `plugins/flawpilot/tools.json`.
-- [ ] Skill is registered in the plugin and the root README table is updated.
+- [ ] Skill is listed in the root README table (the validator checks this).
+- [ ] New plugin: listed in both `.claude-plugin/marketplace.json` and `.agents/plugins/marketplace.json`, with matching `version` in `.claude-plugin/plugin.json` and `.codex-plugin/plugin.json`.
 - [ ] `python3 scripts/validate_skills.py --strict .` and `claude plugin validate . --strict` pass (CI runs both).
 
 ## Reviews

@@ -1,0 +1,41 @@
+{
+  "name": "seo-essentials",
+  "version": "1.0.0",
+  "description": "Standalone technical SEO skills: on-page SEO, crawlability, structured data and link hygiene",
+  "author": {
+    "name": "FlawPilot",
+    "url": "https://flawpilot.com"
+  },
+  "homepage": "https://docs.flawpilot.com",
+  "repository": "https://github.com/flawpilot-hq/flawpilot-agent-toolkit",
+  "license": "Apache-2.0",
+  "keywords": [
+    "seo",
+    "crawlability",
+    "structured-data",
+    "sitemap",
+    "links"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "SEO Essentials",
+    "shortDescription": "On-page SEO, crawlability, structured data and links",
+    "longDescription": "Standalone technical SEO skills: improve titles, meta descriptions and headings, find why pages are not indexed, add and validate schema.org JSON-LD, and fix broken links and redirect chains. No FlawPilot account needed.",
+    "developerName": "FlawPilot",
+    "category": "Developer Tools",
+    "websiteURL": "https://flawpilot.com",
+    "privacyPolicyURL": "https://flawpilot.com/privacy",
+    "termsOfServiceURL": "https://flawpilot.com/terms",
+    "brandColor": "#F15B4C",
+    "composerIcon": "./assets/icon.png",
+    "logo": "./assets/icon.png",
+    "capabilities": [
+      "Read"
+    ],
+    "defaultPrompt": [
+      "Why isn't this page indexed?",
+      "Add Product schema to this page",
+      "Audit the internal links on this site"
+    ]
+  }
+}

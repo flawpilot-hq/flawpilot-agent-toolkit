@@ -19,6 +19,7 @@ import yaml
 NAME_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 MAX_NAME = 64
 MAX_DESC = 1024
+MAX_SHORT_DESC = 200  # Claude.ai skill upload limit; package_skills.py swaps this in for the claude-web ZIP
 MAX_COMPAT = 500
 MAX_BODY_LINES = 500
 KNOWN_FRONTMATTER = {"name", "description", "license", "compatibility", "metadata", "allowed-tools"}
@@ -34,7 +35,7 @@ REMOTE_EXEC_RES = [
 ]
 MD_LINK_RE = re.compile(r"\[[^\]]*\]\(([^)\s]+)\)")
 HEADING_RE = re.compile(r"^#{1,6}\s+(.*?)\s*#*\s*$", re.M)
-MCP_TOOL_RE = re.compile(r"\b((?:trigger|get|list|start)_[a-z][a-z0-9_]*)\b")
+MCP_TOOL_RE = re.compile(r"\b((?:trigger|get|list|start|request)_[a-z][a-z0-9_]*)\b")
 URL_RE = re.compile(r"\bhttp://[^\s)>\"'`]+")
 
 
@@ -127,6 +128,11 @@ def check_skill(skill_dir: Path, plugin: str, tool_names: set[str] | None, root:
     meta = fm.get("metadata")
     if meta is not None and not (isinstance(meta, dict) and all(isinstance(k, str) and isinstance(v, str) for k, v in meta.items())):
         rep.error(rel, "metadata must be a map of string keys to string values")
+    short = meta.get("short-description") if isinstance(meta, dict) else None
+    if short is None:
+        rep.warn(rel, "no `metadata.short-description`; the Claude.ai ZIP needs one (max 200 characters)")
+    elif not isinstance(short, str) or not short.strip() or len(short) > MAX_SHORT_DESC:
+        rep.error(rel, f"metadata.short-description must be 1-{MAX_SHORT_DESC} characters")
     for key in fm:
         if key not in KNOWN_FRONTMATTER:
             rep.warn(rel, f"unknown frontmatter field {key!r}")
@@ -192,8 +198,14 @@ def load_tool_names(plugin_dir: Path, rep: Report, root: Path, release: bool = F
         names.update(x for x in aliases if isinstance(x, str))
     if not names:
         rep.error(path.relative_to(root), "tools.json lists no tool names")
+    unverified = data.get("unverified", {})
+    pending = sorted({x for g in (unverified.values() if isinstance(unverified, dict) else [unverified])
+                      if isinstance(g, list) for x in g if isinstance(x, str)})
+    names.update(pending)
     if release and data.get("verified") is not True:
         rep.error(path.relative_to(root), "tools.json is not `verified: true`; verify against a live tools/list before a release")
+    if release and pending:
+        rep.error(path.relative_to(root), f"unverified tools {pending}; confirm them in a live tools/list and move them into `tools` before a release")
     return names
 
 
@@ -224,6 +236,67 @@ def check_mcp(plugin_dir: Path, root: Path, rep: Report) -> None:
                 rep.error(rel, f"header {hk!r} has a literal value; never commit credentials (use ${{...}} or OAuth)")
 
 
+def check_codex(root: Path, mkt_name: object, claude: dict[str, tuple[Path, object]], rep: Report) -> None:
+    """Codex marketplace and per-plugin manifests must mirror the Claude ones.
+
+    claude maps plugin name -> (plugin dir, Claude manifest version).
+    """
+    path = root / ".agents" / "plugins" / "marketplace.json"
+    if not path.exists():
+        rep.warn(path.relative_to(root), "no Codex marketplace; Codex users cannot install these plugins")
+        return
+    rel = path.relative_to(root)
+    mkt = load_json(path, rep)
+    if mkt is None:
+        return
+    if mkt.get("name") != mkt_name:
+        rep.error(rel, f"name {mkt.get('name')!r} must equal the Claude marketplace name {mkt_name!r}")
+    entries = mkt.get("plugins")
+    if not isinstance(entries, list):
+        rep.error(rel, "`plugins` must be an array")
+        return
+    seen: set[str] = set()
+    for entry in entries:
+        name = entry.get("name") if isinstance(entry, dict) else None
+        src = entry.get("source") if isinstance(entry, dict) else None
+        spath = src.get("path") if isinstance(src, dict) else None
+        if not isinstance(name, str) or not isinstance(spath, str) or src.get("source") != "local":
+            rep.error(rel, "each plugin entry needs a `name` and a `source` of {source: local, path}")
+            continue
+        seen.add(name)
+        if name not in claude:
+            rep.error(rel, f"plugin {name!r} is not in .claude-plugin/marketplace.json")
+            continue
+        pdir, cversion = claude[name]
+        if (root / spath).resolve() != pdir:
+            rep.error(rel, f"plugin {name!r} path {spath!r} differs from the Claude marketplace source")
+            continue
+        cj = pdir / ".codex-plugin" / "plugin.json"
+        manifest = load_json(cj, rep)
+        if manifest is None:
+            continue
+        cjrel = cj.relative_to(root)
+        if manifest.get("name") != name:
+            rep.error(cjrel, f"manifest name {manifest.get('name')!r} must equal {name!r}")
+        if manifest.get("version") != cversion:
+            rep.error(cjrel, f"version {manifest.get('version')!r} must equal the Claude manifest version {cversion!r}")
+        for key in ("skills", "mcpServers"):
+            val = manifest.get(key)
+            if isinstance(val, str) and not (pdir / val).exists():
+                rep.error(cjrel, f"`{key}` points at {val!r}, which does not exist")
+        iface = manifest.get("interface") if isinstance(manifest.get("interface"), dict) else {}
+        for key in ("composerIcon", "logo"):
+            val = iface.get(key)
+            if isinstance(val, str) and not (pdir / val).is_file():
+                rep.error(cjrel, f"`interface.{key}` points at {val!r}, which does not exist")
+        if not isinstance(manifest.get("skills"), str):
+            rep.error(cjrel, "`skills` must point at the skills folder")
+        if (pdir / ".mcp.json").exists() and "mcpServers" not in manifest:
+            rep.error(cjrel, "plugin has .mcp.json but the Codex manifest has no `mcpServers`")
+    for name in sorted(set(claude) - seen):
+        rep.error(rel, f"plugin {name!r} is in the Claude marketplace but not the Codex one")
+
+
 def validate(root: Path, release: bool = False) -> Report:
     rep = Report()
     root = root.resolve()  # macOS tmp dirs are symlinks (/var -> /private/var)
@@ -243,6 +316,7 @@ def validate(root: Path, release: bool = False) -> Report:
         return rep
 
     listed: set[str] = set()
+    claude: dict[str, tuple[Path, object]] = {}
     readme = (root / "README.md").read_text(encoding="utf-8") if (root / "README.md").exists() else ""
     for entry in entries:
         ename = entry.get("name") if isinstance(entry, dict) else None
@@ -275,13 +349,17 @@ def validate(root: Path, release: bool = False) -> Report:
         if ename not in readme:
             rep.warn("README.md", f"plugin {ename!r} is not mentioned in the README")
 
+        claude[ename] = (pdir, manifest.get("version"))
         tool_names = load_tool_names(pdir, rep, root, release)
         check_mcp(pdir, root, rep)
         skills_dir = pdir / "skills"
         if skills_dir.is_dir():
             for sd in sorted(p for p in skills_dir.iterdir() if p.is_dir()):
                 check_skill(sd, ename, tool_names, root, rep)
+                if f"`{sd.name}`" not in readme:
+                    rep.warn("README.md", f"skill `{sd.name}` is not listed in the README")
 
+    check_codex(root, mkt.get("name"), claude, rep)
     plugins_root = root / "plugins"
     if plugins_root.is_dir():
         for d in sorted(p for p in plugins_root.iterdir() if p.is_dir()):

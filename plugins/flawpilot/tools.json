@@ -1,5 +1,5 @@
 {
-  "_comment": "Source of truth for MCP tool names that flawpilot skills may reference. Verified against a live authenticated tools/list from https://mcp.flawpilot.com/mcp (server flawpilot-mcp-server 1.8.10) on 2026-10-12. Re-check when the server version changes.",
+  "_comment": "Source of truth for MCP tool names that flawpilot skills may reference. Names under `tools` were verified against a live authenticated tools/list from https://mcp.flawpilot.com/mcp (server flawpilot-mcp-server 1.8.10) on 2026-10-12. Names in `unverified` come from the docs (https://docs.flawpilot.com/mcp-connect, 2026-11-16) and have not been seen in a live tools/list yet; `validate_skills.py --release` fails until they are verified and moved into `tools`.",
   "server": "https://mcp.flawpilot.com/mcp",
   "verified": true,
   "tools": {
@@ -20,5 +20,20 @@
       "list_site_health_checks"
     ]
   },
-  "verifiedOn": "2026-10-12"
+  "verifiedOn": "2026-10-12",
+  "unverified": {
+    "quickScan": [
+      "get_scan_findings"
+    ],
+    "aiFixes": [
+      "request_finding_ai_fixes",
+      "request_scan_ai_fixes",
+      "get_finding_ai_fix",
+      "get_scan_ai_fix_progress",
+      "request_code_finding_ai_fixes",
+      "request_code_scan_ai_fixes",
+      "get_code_finding_ai_fix",
+      "get_code_scan_ai_fix_progress"
+    ]
+  }
 }

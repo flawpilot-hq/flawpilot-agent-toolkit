@@ -1,7 +1,7 @@
 {
   "name": "performance-essentials",
   "displayName": "Performance Essentials",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Standalone web performance skills: Core Web Vitals, page speed audits, asset optimization, caching and CDN",
   "author": {
     "name": "FlawPilot",

@@ -2,6 +2,8 @@
 name: url-scan
 description: Run a FlawPilot URL scan and summarize findings. Use when the user asks to scan a website.
 license: Apache-2.0
+metadata:
+  short-description: "Run a FlawPilot URL scan."
 ---
 
 # URL scan

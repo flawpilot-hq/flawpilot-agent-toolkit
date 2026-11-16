@@ -1,6 +1,8 @@
 ---
 name: caching-and-cdn
 description: Configure HTTP caching, compression and CDN delivery for faster repeat visits and lower server load, including Cache-Control headers, immutable hashed assets, ETag, Brotli, HTTP/2 and HTTP/3. Use when the user asks about cache headers, CDN setup, slow time to first byte, compression, or why assets are not cached.
+metadata:
+  short-description: "Set up HTTP caching, compression and CDN delivery: Cache-Control, hashed assets, ETag, Brotli, HTTP/2 and HTTP/3."
 ---
 
 # Caching and CDN

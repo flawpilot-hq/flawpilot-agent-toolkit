@@ -1,6 +1,8 @@
 ---
 name: page-speed-audit
 description: Read a Lighthouse or PageSpeed report, or audit a page's speed, and rank fixes by impact. Use when the user shares a Lighthouse report, asks why a site is slow, wants a performance audit or a prioritized list of speed fixes, or wants to compare runs before and after a change.
+metadata:
+  short-description: "Read a Lighthouse or PageSpeed report, or audit page speed, and rank fixes by impact."
 ---
 
 # Page speed audit

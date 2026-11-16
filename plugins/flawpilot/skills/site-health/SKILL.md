@@ -1,6 +1,8 @@
 ---
 name: site-health
 description: Run and read FlawPilot Site Health, a whole-site crawl scored with Lighthouse for performance, accessibility, best practices and SEO. Use when the user asks about site-wide speed, Lighthouse, accessibility, slow pages, desktop versus mobile scores, or wants to compare Site Health runs over time.
+metadata:
+  short-description: "Run and read FlawPilot Site Health: a whole-site Lighthouse crawl for performance, accessibility, best practices and SEO."
 ---
 
 # Site Health

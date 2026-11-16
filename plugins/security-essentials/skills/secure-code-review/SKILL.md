@@ -1,6 +1,8 @@
 ---
 name: secure-code-review
 description: Review code or a diff for security vulnerabilities such as injection, broken access control, weak crypto, SSRF, unsafe deserialization and path traversal, with evidence and fixes. Use when the user asks for a security review, to check code for vulnerabilities, to audit a pull request for security, or whether a change is safe.
+metadata:
+  short-description: "Review code or a diff for injection, broken access control, weak crypto, SSRF and other vulnerabilities, with fixes."
 ---
 
 # Secure code review

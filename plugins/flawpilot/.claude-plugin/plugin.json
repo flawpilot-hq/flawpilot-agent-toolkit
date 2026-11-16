@@ -1,7 +1,7 @@
 {
   "name": "flawpilot",
   "displayName": "FlawPilot",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Run FlawPilot URL scans, Site Health crawls and code scans from your AI assistant, then triage and fix the findings",
   "author": {
     "name": "FlawPilot",

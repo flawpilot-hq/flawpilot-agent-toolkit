@@ -1,6 +1,8 @@
 ---
 name: url-scan
 description: Run a FlawPilot Quick Scan on a live website URL and report scores for Security, Performance, Infrastructure and SEO. Use when the user asks to scan, check, audit or grade a site, domain or URL, or asks what FlawPilot found on a deployed site.
+metadata:
+  short-description: "Run a FlawPilot Quick Scan on a live URL and report Security, Performance, Infrastructure and SEO scores."
 ---
 
 # URL scan (Quick Scan)
@@ -54,7 +56,8 @@ Lead with the band, then pillar scores, then what to fix first.
 - Pillar scores are `score_security`, `score_performance`, `score_infrastructure`, `score_seo`. There is no blended total over MCP. Do not invent one.
 - Give the report link so the user can open the full report.
 - The share token or short code in the result is a bearer credential: anyone holding it can view the public report. Do not post it in public places.
-- For the worst issues, hand off to `triage` and `fix`.
+- For individual findings, call `get_scan_findings` with the scan id once the scan is terminal. Findings come worst first (Critical to Low), with id, severity, title, remediation and the state of the finding's AI fix. It pages results; say how many you read out of `total`. To answer "any criticals?", filter by severity `CRITICAL` and read `total`.
+- For the worst issues, hand off to `triage` and `fix`. For FlawPilot's own written fix, use `ai-fixes`.
 
 ## Limits
 
